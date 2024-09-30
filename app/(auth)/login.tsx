@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, Alert, TextInput, Pressable } from 'react-native';
+import { Text, View, Alert, TextInput, Pressable } from 'react-native';
 
 import { supabase } from '~/utils/supabase';
 
@@ -9,7 +9,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
 
   const onSignIn = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
@@ -19,7 +19,7 @@ const LoginScreen = () => {
   };
 
   const onSignUp = async () => {
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });

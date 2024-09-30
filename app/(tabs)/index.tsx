@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Stack, useRouter } from "expo-router";
 import { useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { supabase } from "~/utils/supabase";
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -29,6 +30,9 @@ export default function Home() {
       </View>
       <TouchableOpacity onPress={() => router.push('/login')} className="m-2">
         <Text className="text-center">Login</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => supabase.auth.signOut()} className="m-2">
+        <Text className="text-center">Sign out</Text>
       </TouchableOpacity>
     </View>
   );

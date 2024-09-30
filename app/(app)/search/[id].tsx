@@ -19,9 +19,9 @@ import { supabase } from '~/utils/supabase';
 dayjs.extend(relativeTime);
 
 const SearchResultScreen = () => {
-  const products = dummyPproducts.slice(0, 20);
   const { id } = useLocalSearchParams();
   const [search, setSearch] = useState('');
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     supabase
@@ -32,6 +32,15 @@ const SearchResultScreen = () => {
       .then(({ data }) => {
         setSearch(data);
       });
+
+    supabase
+      .from('product_search')
+      .select('*, products(*)')
+      .eq('search_id', id)
+      .then(({ data, error }) => {
+        console.log(data, error);
+        setProducts(data?.map((d) => d.products));
+      });
   }, [id]);
 
   const startScraping = async () => {
@@ -39,7 +48,7 @@ const SearchResultScreen = () => {
       body: JSON.stringify({ record: search }),
     });
     console.log(data, error);
-  }
+  };
 
   if (!search) {
     return (

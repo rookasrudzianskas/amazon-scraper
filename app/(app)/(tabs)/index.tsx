@@ -17,15 +17,20 @@ export default function Home() {
 
   const [pastHistory, setPastHistory] = useState([]);
 
-  useEffect(() => {
+  const fetchHistory = async () => {
     supabase
       .from('searches')
       .select('*')
       .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
       .then(({ data }) => {
         setPastHistory(data);
       });
-  });
+  }
+
+  useEffect(() => {
+    fetchHistory();
+  }, []);
 
   const performSearch = async () => {
     console.log('Searching...');
@@ -67,6 +72,9 @@ export default function Home() {
 
       <FlatList
         data={pastHistory}
+        onRefresh={fetchHistory}
+        refreshing={false}
+        keyExtractor={(item) => item.asin}
         contentContainerStyle={{ padding: 10 }}
         renderItem={({ item }) => (
           <View className="my-1 flex flex-col items-start border-b border-black/20 p-2">

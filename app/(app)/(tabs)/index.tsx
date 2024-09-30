@@ -77,13 +77,13 @@ export default function Home() {
         keyExtractor={(item) => item.asin}
         contentContainerStyle={{ padding: 10 }}
         renderItem={({ item }) => (
-          <View className="my-1 flex flex-col items-start border-b border-black/20 p-2">
+          <TouchableOpacity onPress={() => router.push(`/search/${item.id}`)} className="my-1 flex flex-col items-start border-b border-black/20 p-2">
             <Text className="font-semibold">{item.query}</Text>
             <Text className="text-xs">
               {dayjs(item.created_at).fromNow()}
               <Text className="text-xs text-gray-500"> | Last updated</Text>
             </Text>
-          </View>
+          </TouchableOpacity>
         )}
       />
     </View>

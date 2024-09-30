@@ -10,8 +10,8 @@ import {
   Image,
   TouchableOpacity,
   Linking,
-  ActivityIndicator,
-} from 'react-native';
+  ActivityIndicator, Button
+} from "react-native";
 
 import dummyPproducts from '~/assets/search.json';
 import { supabase } from '~/utils/supabase';
@@ -34,6 +34,13 @@ const SearchResultScreen = () => {
       });
   }, [id]);
 
+  const startScraping = async () => {
+    const { data, error } = await supabase.functions.invoke('scrape-start', {
+      body: JSON.stringify({ record: search }),
+    });
+    console.log(data, error);
+  }
+
   if (!search) {
     return (
       <View className="flex-1 items-center justify-center">
@@ -51,6 +58,9 @@ const SearchResultScreen = () => {
           <Text className="text-xs text-gray-500"> | Last updated</Text>
         </Text>
         <Text className="text-sm text-gray-500">{dayjs(search.updated_at).fromNow()}</Text>
+
+        <Button title="Start scraping" onPress={startScraping} />
+
       </View>
       <FlatList
         data={products}

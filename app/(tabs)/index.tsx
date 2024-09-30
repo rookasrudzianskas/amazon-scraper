@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useRouter } from "expo-router";
 import { useState } from 'react';
-import { TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function Home() {
   const [search, setSearch] = useState('');
@@ -27,6 +27,9 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </View>
+      <TouchableOpacity onPress={() => router.push('/login')} className="m-2">
+        <Text className="text-center">Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }

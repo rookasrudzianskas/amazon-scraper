@@ -22,7 +22,9 @@ const SearchResultScreen = () => {
             <Text className="text-md">${item.final_price}</Text>
           </TouchableOpacity>
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.asin}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
       />
     </View>
   );
